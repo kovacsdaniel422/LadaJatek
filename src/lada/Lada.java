@@ -20,9 +20,9 @@ public class Lada {
     }
 
     public Lada(String leiras, String helyesLada) {
-        this.aranySzabaly = "Arany:Én rejtem a kincset";
-        this.ezustSzabaly = "Ezüst:Nem én rejtem a kincset";
-        this.bronzSzabaly = "Bronz:Az arany hazudik.";
+        this.aranySzabaly = "Arany: Én rejtem a kincset";
+        this.ezustSzabaly = "Ezüst: Nem én rejtem a kincset";
+        this.bronzSzabaly = "Bronz: Az arany hazudik.";
         this.leiras = leiras;
         this.helyesLada = helyesLada;
     }

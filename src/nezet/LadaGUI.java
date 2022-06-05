@@ -1,16 +1,21 @@
 package nezet;
 
+import java.awt.Component;
+import javax.swing.JButton;
 import lada.Lada;
 
 public class LadaGUI extends javax.swing.JFrame {
 
-    private Lada L1;
+    private static JButton gomb;
+
+    private final Lada L1;
+    private JButton[] gombok;
 
     public LadaGUI() {
         initComponents();
-        setTitle("Kincs Kereső játék");
+        gombokFeltolt();
         L1 = new Lada();
-        lblLeir.setText("<html><p>"+ L1.getLeiras() +"</p></html>");
+        lblLeir.setText("<html><p>" + L1.getLeiras() + "</p></html>");
 
     }
 
@@ -18,6 +23,7 @@ public class LadaGUI extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        ladaGrp = new javax.swing.ButtonGroup();
         hatterPanel = new javax.swing.JPanel();
         gombokPanel = new javax.swing.JPanel();
         jbArany = new javax.swing.JButton();
@@ -28,22 +34,20 @@ public class LadaGUI extends javax.swing.JFrame {
         pnlLeir = new javax.swing.JPanel();
         lblLeir = new javax.swing.JLabel();
         restart = new javax.swing.JButton();
-        jPanel2 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
         stat = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Kincs Kereső játék");
         setResizable(false);
 
         jbArany.setBackground(new java.awt.Color(255, 255, 255));
         jbArany.setIcon(new javax.swing.ImageIcon(getClass().getResource("/nezet/AranyLada.jpeg"))); // NOI18N
         jbArany.setActionCommand("Arany");
+        ladaGrp.add(jbArany);
         jbArany.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jbArany.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                hoverEffect(evt);
+                jbAranyMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 hoverVege(evt);
@@ -59,10 +63,11 @@ public class LadaGUI extends javax.swing.JFrame {
         jbEzust.setBackground(new java.awt.Color(255, 255, 255));
         jbEzust.setIcon(new javax.swing.ImageIcon(getClass().getResource("/nezet/EzustLada.jpeg"))); // NOI18N
         jbEzust.setActionCommand("Ezüst");
+        ladaGrp.add(jbEzust);
         jbEzust.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jbEzust.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                hoverEffect(evt);
+                jbEzustMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 hoverVege(evt);
@@ -78,10 +83,11 @@ public class LadaGUI extends javax.swing.JFrame {
         jbBronz.setBackground(new java.awt.Color(255, 255, 255));
         jbBronz.setIcon(new javax.swing.ImageIcon(getClass().getResource("/nezet/BronzLada.jpeg"))); // NOI18N
         jbBronz.setActionCommand("Bronz");
+        ladaGrp.add(jbBronz);
         jbBronz.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jbBronz.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                hoverEffect(evt);
+                jbBronzMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 hoverVege(evt);
@@ -111,6 +117,11 @@ public class LadaGUI extends javax.swing.JFrame {
         );
 
         restart.setText("Újrapróbálom!");
+        restart.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                restartActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -140,38 +151,6 @@ public class LadaGUI extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-
-        jLabel1.setText("Arany");
-
-        jLabel2.setText("Ezüst");
-
-        jLabel3.setText("Bronz");
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(43, 43, 43)
-                .addComponent(jLabel1)
-                .addGap(113, 113, 113)
-                .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 120, Short.MAX_VALUE)
-                .addComponent(jLabel3)
-                .addGap(45, 45, 45))
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel3))
-                .addContainerGap())
-        );
-
         javax.swing.GroupLayout hatterPanelLayout = new javax.swing.GroupLayout(hatterPanel);
         hatterPanel.setLayout(hatterPanelLayout);
         hatterPanelLayout.setHorizontalGroup(
@@ -180,16 +159,14 @@ public class LadaGUI extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(hatterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(hatterPanelLayout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addComponent(stat, javax.swing.GroupLayout.PREFERRED_SIZE, 407, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(hatterPanelLayout.createSequentialGroup()
                         .addGroup(hatterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(gombokPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 439, Short.MAX_VALUE))
-                        .addContainerGap())
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, hatterPanelLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addGroup(hatterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(stat, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(28, 28, 28))))
+                        .addContainerGap())))
         );
         hatterPanelLayout.setVerticalGroup(
             hatterPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -197,12 +174,10 @@ public class LadaGUI extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(gombokPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(stat, javax.swing.GroupLayout.DEFAULT_SIZE, 19, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(gombokPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(stat, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(18, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -225,33 +200,60 @@ public class LadaGUI extends javax.swing.JFrame {
         vizsgal(felirat);
     }//GEN-LAST:event_valaszEllenoriz
 
-    private void hoverEffect(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_hoverEffect
-        stat.setText("Rávitted az egered");
-    }//GEN-LAST:event_hoverEffect
-
     private void hoverVege(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_hoverVege
-       stat.setText("");
+        stat.setText("");
     }//GEN-LAST:event_hoverVege
+
+    private void jbBronzMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbBronzMouseEntered
+        stat.setText(L1.getBronzSzabaly());
+    }//GEN-LAST:event_jbBronzMouseEntered
+
+    private void jbEzustMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbEzustMouseEntered
+        stat.setText(L1.getEzustSzabaly());
+    }//GEN-LAST:event_jbEzustMouseEntered
+
+    private void jbAranyMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbAranyMouseEntered
+        stat.setText(L1.getAranySzabaly());
+    }//GEN-LAST:event_jbAranyMouseEntered
+
+    private void restartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_restartActionPerformed
+        setGombEnabled(true);
+    }//GEN-LAST:event_restartActionPerformed
+    private void gombokFeltolt() {
+        gombok = new JButton[gombokPanel.getComponentCount()];
+        for (int i = 0; i < gombok.length; i++) {
+            Component component = gombokPanel.getComponent(i);
+            if (component instanceof JButton) {
+                gomb = (JButton) component;
+                gombok[i] = gomb;
+            }
+        }
+    }
+
+    private void setGombEnabled(boolean aktiv) {
+        for (JButton gomb : gombok) {
+            gomb.setEnabled(aktiv);
+        }
+    }
 
     private void vizsgal(String Tipp) {
         if (Tipp.equals(L1.getHelyesLada())) {
-            lblLeir.setText("nyertél");
+            stat.setText("nyertél");
+
         } else {
-            lblLeir.setText("vesztettél");
+            stat.setText("vesztettél");
         }
-        
+        setGombEnabled(false);
+
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel gombokPanel;
     private javax.swing.JPanel hatterPanel;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JButton jbArany;
     private javax.swing.JButton jbBronz;
     private javax.swing.JButton jbEzust;
+    private javax.swing.ButtonGroup ladaGrp;
     private javax.swing.JLabel lblFejlec;
     private javax.swing.JLabel lblLeir;
     private javax.swing.JPanel pnlLeir;
