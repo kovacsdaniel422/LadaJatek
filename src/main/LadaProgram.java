@@ -1,7 +1,7 @@
 package main;
-    import  frame.LadaGUI ;
+    import  nezet.LadaGUI ;
 
-public class LadaJatek {
+public class LadaProgram {
 
 
     public static void main(String[] args) {
