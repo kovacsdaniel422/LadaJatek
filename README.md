@@ -8,7 +8,7 @@ Egy találóskérdést kell leprogramozni. A programozási munkába minél több
 - program szétbontása package-ekre🟢
 - GUI készítés, kép használattal🟢
 - Tiszta kód elvei🟢
-- Tesztkód írása (1 fontos metódusnak 1 fontos tesztesete)🟢🔴
+- Tesztkód írása (1 fontos metódusnak 1 fontos tesztesete)🟢
 
 3 láda közül az egyik rejti a kincset. Mindegyiken van egy felirat (ami nem változtatható, mert belevésték a ládába), de csak az egyik láda állítása igaz! 
 - arany: én rejtem a kincset
