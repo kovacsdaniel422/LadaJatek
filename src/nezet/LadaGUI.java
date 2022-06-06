@@ -7,15 +7,15 @@ import lada.Lada;
 public class LadaGUI extends javax.swing.JFrame {
 
     private static JButton gomb;
-
-    private final Lada L1;
+    private final Lada lad1;
     private JButton[] gombok;
+    private String leiras;
 
     public LadaGUI() {
         initComponents();
         gombokFeltolt();
-        L1 = new Lada();
-        lblLeir.setText("<html><p>" + L1.getLeiras() + "</p></html>");
+        lad1 = new Lada();
+        lblLeir.setText("<html><p>" + lad1.getLeiras() + "</p></html>");
 
     }
 
@@ -197,7 +197,8 @@ public class LadaGUI extends javax.swing.JFrame {
 
     private void valaszEllenoriz(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_valaszEllenoriz
         String felirat = evt.getActionCommand();
-        vizsgal(felirat);
+        stat.setText(lad1.vizsgal(felirat));
+        setGombEnabled(false);
     }//GEN-LAST:event_valaszEllenoriz
 
     private void hoverVege(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_hoverVege
@@ -205,19 +206,20 @@ public class LadaGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_hoverVege
 
     private void jbBronzMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbBronzMouseEntered
-        stat.setText(L1.getBronzSzabaly());
+        stat.setText(lad1.getBronzSzabaly());
     }//GEN-LAST:event_jbBronzMouseEntered
 
     private void jbEzustMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbEzustMouseEntered
-        stat.setText(L1.getEzustSzabaly());
+        stat.setText(lad1.getEzustSzabaly());
     }//GEN-LAST:event_jbEzustMouseEntered
 
     private void jbAranyMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbAranyMouseEntered
-        stat.setText(L1.getAranySzabaly());
+        stat.setText(lad1.getAranySzabaly());
     }//GEN-LAST:event_jbAranyMouseEntered
 
     private void restartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_restartActionPerformed
         setGombEnabled(true);
+        lblLeir.setText("<html><p>" + lad1.getLeiras() + "</p></html>");
     }//GEN-LAST:event_restartActionPerformed
     private void gombokFeltolt() {
         gombok = new JButton[gombokPanel.getComponentCount()];
@@ -234,17 +236,6 @@ public class LadaGUI extends javax.swing.JFrame {
         for (JButton gomb : gombok) {
             gomb.setEnabled(aktiv);
         }
-    }
-
-    private void vizsgal(String Tipp) {
-        if (Tipp.equals(L1.getHelyesLada())) {
-            stat.setText("nyertél");
-
-        } else {
-            stat.setText("vesztettél");
-        }
-        setGombEnabled(false);
-
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel gombokPanel;
